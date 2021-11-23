@@ -1,5 +1,6 @@
 package com.biggwang.state.enity;
 
+import com.biggwang.state.code.StatesEnum;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,5 +18,6 @@ public class UserStateEntity {
     @Column(name = "id", insertable = false, nullable = false)
     private Long id;
 
-    private String state;
+    @Enumerated(value = EnumType.STRING)
+    private StatesEnum state;
 }
