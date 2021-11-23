@@ -1,0 +1,41 @@
+spring:
+  datasource:
+    generate-unique-name: false
+    url: jdbc:h2:tcp://localhost/~/test
+    driver-class-name: org.h2.Driver
+    username: sa
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+    datasource:
+      platform: h2
+    jpa:
+      database-platform: org.hibernate.dialect.H2Dialect
+#      properties.hibernate.hbm2ddl.auto: update
+      showSql: true
+      open-in-view: false
+      properties:
+        javax.persistence.query.timeout: 10000
+        org.hibernate.envers.audit_table_suffix: _history
+        hibernate:
+          format_sql: true
+          ddl-auto: update
+          connection:
+            charset: utf8
+            useUnicode: true
+      defer-datasource-initialization: true
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+    org.springframework.web: DEBUG
+    org.springframework.security: TRACE
+    org.hibernate:
+      SQL: DEBUG
+      stat: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    jdbc: INFO
+    jdbc.sqltiming: DEBUG
+    jdbc.resultsettable: DEBUG
