@@ -1,26 +1,23 @@
 package com.biggwang.state.config;
 
-import com.biggwang.state.Persist;
-import com.biggwang.state.repository.UserStateRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.biggwang.state.listener.EntityStateListener;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.recipes.persist.PersistStateMachineHandler;
 
 @Configuration
+@RequiredArgsConstructor
 public class PersistHandlerConfig {
 
-    @Autowired
-    private StateMachine<String, String> stateMachine;
-
-    @Bean
-    public Persist persist() {
-        return new Persist(persistStateMachineHandler());
-    }
+    private final StateMachine<String, String> stateMachine;
+    private final EntityStateListener entityStateListener;
 
     @Bean
     public PersistStateMachineHandler persistStateMachineHandler() {
-        return new PersistStateMachineHandler(stateMachine);
+        PersistStateMachineHandler handler = new PersistStateMachineHandler(stateMachine);
+        handler.addPersistStateChangeListener(entityStateListener);
+        return handler;
     }
 }

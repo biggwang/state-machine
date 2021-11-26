@@ -18,6 +18,6 @@ public class UserStateEntity {
     @Column(name = "id", insertable = false, nullable = false)
     private Long id;
 
-    @Enumerated(value = EnumType.STRING)
-    private StatesEnum state;
+    //@Enumerated(value = EnumType.STRING)
+    private String state;
 }
